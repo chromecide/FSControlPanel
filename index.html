@@ -140,7 +140,7 @@
 						{
 							name: '../FluxUI/FluxUI',
 							options: {
-								path: '/Users/justinpradier/Google Drive/FluxSingularity-Dev/FSControlPanel/node_modules/FluxUI/lib/',
+								path: 'node_modules/FluxUI/lib/',
 								// driver: 'basic_html', //assumed by default
 								workspaces:[
 									{
@@ -151,14 +151,6 @@
 													{
 														name: 'HomeButton',
 														text: 'Flux Singularity Control Panel'
-													},
-													{
-														name: 'FluxNodeButton',
-														text: 'Login',
-														clickEvent: {
-															name: 'LoginWindow.Show',
-															params:{}
-														}
 													}
 												]
 											},
@@ -186,10 +178,10 @@
 							}
 						},
 						{
-							name: 'mixins/websockets'
+							name: 'mixins/GroupSecurity/main'
 						},
 						{
-							name: '../../lib/mixins/loginWindow/index'
+							name: 'mixins/websockets'
 						}
 					
 					]
@@ -201,13 +193,7 @@
 					console.log('----');
 					
 					myNode.on('Tunnel.Ready',function(destination){
-						serverID = destination;//we'll only ever connect to one other node from a browser
-					});
-					
-					myNode.on('LoginWindow.Login', function(creds){
-						myNode.sendEvent(serverID, 'GroupSecurity.Login', creds, function(){
-							console.log(arguments);
-						});
+						myNode.serverID = destination;//we'll only ever connect to one other node from a browser
 					});
 					
 					myNode.FluxUI_changeWorkspace(); //change to the default workspace
